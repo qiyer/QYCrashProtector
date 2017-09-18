@@ -25,6 +25,6 @@ typedef NS_ENUM(NSInteger, CrashProtectorStyle) {
 @property(nonatomic,assign) Boolean             isDebug;
 @property(nonatomic,assign) CrashProtectorStyle style;
 
-+(instancetype)initDefault;
+-(instancetype)initDefault;
 
 @end

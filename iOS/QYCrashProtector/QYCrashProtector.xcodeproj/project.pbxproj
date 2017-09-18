@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01188AD01F68DC5200FC101E /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 01188ACF1F68DC5200FC101E /* Test.m */; };
+		01188AD31F6920C900FC101E /* SwizzlingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 01188AD21F6920C900FC101E /* SwizzlingTest.m */; };
 		01F021ED1F5D4B0300BDB21E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F021EC1F5D4B0300BDB21E /* main.m */; };
 		01F021F01F5D4B0300BDB21E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F021EF1F5D4B0300BDB21E /* AppDelegate.m */; };
-		01F021F31F5D4B0300BDB21E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F021F21F5D4B0300BDB21E /* ViewController.m */; };
-		01F021F61F5D4B0300BDB21E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F021F41F5D4B0300BDB21E /* Main.storyboard */; };
 		01F021F81F5D4B0300BDB21E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01F021F71F5D4B0300BDB21E /* Assets.xcassets */; };
 		01F021FB1F5D4B0300BDB21E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F021F91F5D4B0300BDB21E /* LaunchScreen.storyboard */; };
 		01F022051F5D4F3B00BDB21E /* NSObject+CrashProtector.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F022041F5D4F3B00BDB21E /* NSObject+CrashProtector.m */; };
@@ -19,13 +19,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01188ACE1F68DC5200FC101E /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
+		01188ACF1F68DC5200FC101E /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
+		01188AD11F6920C900FC101E /* SwizzlingTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwizzlingTest.h; sourceTree = "<group>"; };
+		01188AD21F6920C900FC101E /* SwizzlingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwizzlingTest.m; sourceTree = "<group>"; };
 		01F021E81F5D4B0300BDB21E /* QYCrashProtector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QYCrashProtector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01F021EC1F5D4B0300BDB21E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01F021EE1F5D4B0300BDB21E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		01F021EF1F5D4B0300BDB21E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		01F021F11F5D4B0300BDB21E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		01F021F21F5D4B0300BDB21E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		01F021F51F5D4B0300BDB21E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		01F021F71F5D4B0300BDB21E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01F021FA1F5D4B0300BDB21E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01F021FC1F5D4B0300BDB21E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,13 +71,14 @@
 				01F022021F5D4B4100BDB21E /* CrashProtector */,
 				01F021EE1F5D4B0300BDB21E /* AppDelegate.h */,
 				01F021EF1F5D4B0300BDB21E /* AppDelegate.m */,
-				01F021F11F5D4B0300BDB21E /* ViewController.h */,
-				01F021F21F5D4B0300BDB21E /* ViewController.m */,
-				01F021F41F5D4B0300BDB21E /* Main.storyboard */,
 				01F021F71F5D4B0300BDB21E /* Assets.xcassets */,
 				01F021F91F5D4B0300BDB21E /* LaunchScreen.storyboard */,
 				01F021FC1F5D4B0300BDB21E /* Info.plist */,
 				01F021EB1F5D4B0300BDB21E /* Supporting Files */,
+				01188ACE1F68DC5200FC101E /* Test.h */,
+				01188ACF1F68DC5200FC101E /* Test.m */,
+				01188AD11F6920C900FC101E /* SwizzlingTest.h */,
+				01188AD21F6920C900FC101E /* SwizzlingTest.m */,
 			);
 			path = QYCrashProtector;
 			sourceTree = "<group>";
@@ -162,7 +164,6 @@
 			files = (
 				01F021FB1F5D4B0300BDB21E /* LaunchScreen.storyboard in Resources */,
 				01F021F81F5D4B0300BDB21E /* Assets.xcassets in Resources */,
-				01F021F61F5D4B0300BDB21E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,26 +174,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01F021F31F5D4B0300BDB21E /* ViewController.m in Sources */,
 				01F021F01F5D4B0300BDB21E /* AppDelegate.m in Sources */,
 				01F022081F5D506500BDB21E /* CPManager.m in Sources */,
 				01F0220B1F5D56D100BDB21E /* CPConfiguration.m in Sources */,
+				01188AD01F68DC5200FC101E /* Test.m in Sources */,
 				01F022051F5D4F3B00BDB21E /* NSObject+CrashProtector.m in Sources */,
 				01F021ED1F5D4B0300BDB21E /* main.m in Sources */,
+				01188AD31F6920C900FC101E /* SwizzlingTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		01F021F41F5D4B0300BDB21E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				01F021F51F5D4B0300BDB21E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		01F021F91F5D4B0300BDB21E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -335,6 +329,7 @@
 				01F022011F5D4B0300BDB21E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

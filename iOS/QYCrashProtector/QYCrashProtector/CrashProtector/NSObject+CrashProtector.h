@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@interface CrashProxy : NSObject
+
+@property (nonatomic,copy) NSString *crashMsg;
+- (void)getCrashMsg;
+
+@end
+
+//....
 @interface NSObject (CrashProtector)
 
 @end
+

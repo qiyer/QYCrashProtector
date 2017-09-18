@@ -10,13 +10,13 @@
 
 @implementation CPConfiguration
 
-+(instancetype)initDefault
+-(instancetype)initDefault
 {
-    CPConfiguration * config = [CPConfiguration new];
-    config.isDebug = NO;
-    config.openLog = NO;
-    config.style   = CrashProtectorAll;
-    
-    return config;
+    if(self = [super init]){
+        self.isDebug = NO;
+        self.openLog = NO;
+        self.style   = CrashProtectorAll;
+    }
+    return self;
 }
 @end

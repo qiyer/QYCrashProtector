@@ -28,7 +28,7 @@
 
 -(void)initWithConfig:(CPConfiguration*) config
 {
-    configs = config?:[CPConfiguration initDefault];
+    configs = config?:[[CPConfiguration alloc] initDefault];
 }
 
 -(void)start
