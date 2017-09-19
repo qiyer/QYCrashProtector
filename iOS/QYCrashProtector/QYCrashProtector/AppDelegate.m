@@ -11,6 +11,8 @@
 //#import "NSObject+CrashProtector.h"
 #import "SwizzlingTest.h"
 
+#import "NSObject+CrashProtector.h"
+
 @interface AppDelegate ()
 
 @end
@@ -36,6 +38,13 @@
     [stest doFuncA];
     [stest doFuncB];
     
+    NSString * tt  = nil;
+    NSDictionary * dic = @{@"sss":@"cccc",@"name":tt};
+    NSMutableDictionary * dic2 = @{@"sss":@"cccc",@"name":tt};
+    [dic2 setObject:tt forKey:@"cccc"];
+    [dic2 setObject:@"xxxx" forKey:@"key1"];
+    [dic2 setObject:@"xxxx" forKey:@"key2"];
+    NSLog(@"dddd");
     return YES;
 }
 

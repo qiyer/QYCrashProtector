@@ -15,7 +15,7 @@
 -(void)doFuncA
 {
     NSLog(@"%s",__func__);
-    NSCache
+    
 }
 
 -(void)doFuncB

@@ -8,7 +8,26 @@
 
 #import <Foundation/Foundation.h>
 
-@class CPConfiguration;
+typedef NS_ENUM(NSInteger, CrashProtectorStyle) {
+    CrashProtectorNone = 0,
+    CrashProtectorAll ,
+    CrashProtectorUnrecognizedSelector,
+    CrashProtectorKVO ,
+    CrashProtectorNotification ,
+    CrashProtectorTimer ,
+    CrashProtectorContainer ,
+    CrashProtectorString ,
+};
+
+@interface CPConfiguration : NSObject
+
+@property(nonatomic,assign) Boolean             openLog;
+@property(nonatomic,assign) Boolean             isDebug;
+@property(nonatomic,assign) CrashProtectorStyle style;
+
+-(instancetype)initDefault;
+
+@end
 
 
 @interface CPManager : NSObject

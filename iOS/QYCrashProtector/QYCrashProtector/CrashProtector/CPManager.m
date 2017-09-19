@@ -7,7 +7,21 @@
 //
 
 #import "CPManager.h"
-#import "CPConfiguration.h"
+
+@implementation CPConfiguration
+
+-(instancetype)initDefault
+{
+    if(self = [super init]){
+        self.isDebug = NO;
+        self.openLog = NO;
+        self.style   = CrashProtectorAll;
+    }
+    return self;
+}
+@end
+
+
 
 @implementation CPManager
 {

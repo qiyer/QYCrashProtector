@@ -15,7 +15,6 @@
 		01F021FB1F5D4B0300BDB21E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01F021F91F5D4B0300BDB21E /* LaunchScreen.storyboard */; };
 		01F022051F5D4F3B00BDB21E /* NSObject+CrashProtector.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F022041F5D4F3B00BDB21E /* NSObject+CrashProtector.m */; };
 		01F022081F5D506500BDB21E /* CPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F022071F5D506500BDB21E /* CPManager.m */; };
-		01F0220B1F5D56D100BDB21E /* CPConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F0220A1F5D56D100BDB21E /* CPConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,8 +33,6 @@
 		01F022041F5D4F3B00BDB21E /* NSObject+CrashProtector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CrashProtector.m"; sourceTree = "<group>"; };
 		01F022061F5D506500BDB21E /* CPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPManager.h; sourceTree = "<group>"; };
 		01F022071F5D506500BDB21E /* CPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPManager.m; sourceTree = "<group>"; };
-		01F022091F5D56D100BDB21E /* CPConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPConfiguration.h; sourceTree = "<group>"; };
-		01F0220A1F5D56D100BDB21E /* CPConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPConfiguration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +95,6 @@
 				01F022041F5D4F3B00BDB21E /* NSObject+CrashProtector.m */,
 				01F022061F5D506500BDB21E /* CPManager.h */,
 				01F022071F5D506500BDB21E /* CPManager.m */,
-				01F022091F5D56D100BDB21E /* CPConfiguration.h */,
-				01F0220A1F5D56D100BDB21E /* CPConfiguration.m */,
 			);
 			path = CrashProtector;
 			sourceTree = "<group>";
@@ -176,7 +171,6 @@
 			files = (
 				01F021F01F5D4B0300BDB21E /* AppDelegate.m in Sources */,
 				01F022081F5D506500BDB21E /* CPManager.m in Sources */,
-				01F0220B1F5D56D100BDB21E /* CPConfiguration.m in Sources */,
 				01188AD01F68DC5200FC101E /* Test.m in Sources */,
 				01F022051F5D4F3B00BDB21E /* NSObject+CrashProtector.m in Sources */,
 				01F021ED1F5D4B0300BDB21E /* main.m in Sources */,
