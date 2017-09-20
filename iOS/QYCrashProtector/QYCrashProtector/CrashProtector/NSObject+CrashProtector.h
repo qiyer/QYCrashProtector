@@ -33,3 +33,13 @@
 @interface NSMutableDictionary (CrashProtector)
 
 @end
+
+// NSArray
+@interface NSArray (CrashProtector)
+
+@end
+
+// NSMutableArray
+@interface NSMutableArray (CrashProtector)
+
+@end

@@ -40,11 +40,22 @@
     
     NSString * tt  = nil;
     NSDictionary * dic = @{@"sss":@"cccc",@"name":tt};
-    NSMutableDictionary * dic2 = @{@"sss":@"cccc",@"name":tt};
+    NSMutableDictionary * dic2 = [[NSMutableDictionary alloc] init];
     [dic2 setObject:tt forKey:@"cccc"];
     [dic2 setObject:@"xxxx" forKey:@"key1"];
     [dic2 setObject:@"xxxx" forKey:@"key2"];
+    
+    [dic objectForKey:tt];
     NSLog(@"dddd");
+    
+    NSArray * arr = @[@"111",@"222",tt,@"ddd"];
+    NSArray * arr2 = @[@[@"aa",@"bb"],@[@"dd",tt]];
+    NSArray *arr3 = [NSArray arrayWithObjects:@"dsd",tt,@"sdsd", nil];
+    arr[3];
+    
+    NSMutableArray * arr4 = [NSMutableArray array];
+    [arr4 addObject:tt];
+    NSLog(@"xxxxxx");
     return YES;
 }
 
