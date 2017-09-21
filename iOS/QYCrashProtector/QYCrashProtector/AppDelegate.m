@@ -55,6 +55,14 @@
     
     NSMutableArray * arr4 = [NSMutableArray array];
     [arr4 addObject:tt];
+    [arr4 insertObject:tt atIndex:0];
+    [arr4 insertObject:@"ccc" atIndex:0];
+    [arr4 objectAtIndex:2];
+    
+    NSString * str = [[NSString alloc] initWithString:nil];
+    [@"dddd" hasSuffix:nil];
+    
+    NSString * str2 = [NSMutableString stringWithString:nil];
     NSLog(@"xxxxxx");
     return YES;
 }

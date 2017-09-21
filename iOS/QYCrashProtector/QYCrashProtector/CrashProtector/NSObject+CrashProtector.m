@@ -110,6 +110,18 @@
         [self swizzingInstance:objc_getClass("__NSArrayI") orginalMethod:@selector(objectAtIndex:) replaceMethod:NSSelectorFromString(@"qiye_objectAtIndex:")];
         
         [self swizzingInstance:objc_getClass("__NSArrayM") orginalMethod:@selector(addObject:) replaceMethod:NSSelectorFromString(@"qiye_addObject:")];
+        
+        [self swizzingInstance:objc_getClass("__NSArrayM") orginalMethod:@selector(insertObject:atIndex:) replaceMethod:NSSelectorFromString(@"qiye_insertObject:atIndex:")];
+        
+        [self swizzingInstance:objc_getClass("__NSArrayM") orginalMethod:@selector(objectAtIndex:) replaceMethod:NSSelectorFromString(@"qiye_objectAtIndex:")];
+        
+        [self swizzingInstance:objc_getClass("NSPlaceholderString") orginalMethod:@selector(initWithString:) replaceMethod:NSSelectorFromString(@"qiye_initWithString:")];
+        
+        [self swizzingInstance:objc_getClass("__NSCFConstantString") orginalMethod:@selector(hasSuffix:) replaceMethod:NSSelectorFromString(@"qiye_hasSuffix:")];
+        
+        [self swizzingInstance:objc_getClass("__NSCFConstantString") orginalMethod:@selector(hasPrefix:) replaceMethod:NSSelectorFromString(@"qiye_hasPrefix:")];
+        
+        [self swizzingInstance:objc_getClass("NSPlaceholderMutableString") orginalMethod:@selector(initWithString:) replaceMethod:NSSelectorFromString(@"qiye_initWithString:")];
     });
 }
 @end
@@ -229,5 +241,61 @@
     [self qiye_insertObject:anObject atIndex:index];
 }
 
+- (id)qiye_objectAtIndex:(NSUInteger)index
+{
+    if (index >= self.count) {
+        NSLog(@"need log msg");
+        return nil;
+    }
+    return [self qiye_objectAtIndex:index];
+}
+
 @end
 
+//  NSString (CrashProtector)
+//  fix
+@implementation NSString (CrashProtector)
+
+- (instancetype)qiye_initWithString:(NSString *)aString
+{
+    if(nil == aString){
+        NSLog(@"need log msg");
+        return nil;
+    }
+    return [self qiye_initWithString:aString];
+}
+
+- (BOOL)qiye_hasPrefix:(NSString *)str
+{
+    if(nil == str){
+        NSLog(@"need log msg");
+        return NO;
+    }
+    return [self qiye_hasPrefix:str];
+}
+
+- (BOOL)qiye_hasSuffix:(NSString *)str
+{
+    if(nil == str){
+        NSLog(@"need log msg");
+        return NO;
+    }
+    return [self qiye_hasSuffix:str];
+}
+
+@end
+
+//  NSMutableString (CrashProtector)
+//  fix
+@implementation NSMutableString (CrashProtector)
+
+- (instancetype)qiye_initWithString:(NSString *)aString
+{
+    if(nil == aString){
+        NSLog(@"need log msg");
+        return nil;
+    }
+    return [self qiye_initWithString:aString];
+}
+
+@end

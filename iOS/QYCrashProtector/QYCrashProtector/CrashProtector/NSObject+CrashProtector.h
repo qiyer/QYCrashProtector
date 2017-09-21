@@ -43,3 +43,13 @@
 @interface NSMutableArray (CrashProtector)
 
 @end
+
+// NSString
+@interface NSString (CrashProtector)
+
+@end
+
+// NSMutableString
+@interface NSMutableString (CrashProtector)
+
+@end
