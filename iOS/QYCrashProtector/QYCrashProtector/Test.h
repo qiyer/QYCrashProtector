@@ -10,4 +10,6 @@
 
 @interface Test : NSObject
 
+-(void)doTimerTest;
+-(void)doNotificationTest;
 @end

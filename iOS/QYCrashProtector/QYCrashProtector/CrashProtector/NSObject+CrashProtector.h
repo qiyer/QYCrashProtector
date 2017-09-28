@@ -10,7 +10,7 @@
 
 @interface CrashProxy : NSObject
 
-@property (nonatomic,copy) NSString *crashMsg;
+@property (nonatomic,copy) NSString * _Nullable crashMsg;
 
 - (void)getCrashMsg;
 
@@ -19,8 +19,7 @@
 // NSObject
 @interface NSObject (CrashProtector)
 
-+ (BOOL)swizzingInstanceMethod:(SEL)originalSelector  replaceMethod:(SEL)replaceSelector;
-+ (BOOL)swizzingClassMethod:(SEL)originSelector replaceMethod:(SEL)replaceSelector;
++ (BOOL)swizzlingInstanceMethod:(SEL _Nullable )originalSelector  replaceMethod:(SEL _Nullable )replaceSelector;
 
 @end
 
@@ -51,5 +50,40 @@
 
 // NSMutableString
 @interface NSMutableString (CrashProtector)
+
+@end
+
+//CPWeakProxy
+//拿了YY大神的YYWeakProxy，感谢YY大神   链接 :https://github.com/ibireme/YYKit/blob/master/YYKit/Utility/YYWeakProxy.h
+@interface CPWeakProxy : NSProxy
+
+/**
+ The proxy target.
+ */
+@property (nullable, nonatomic, weak, readonly) id target;
+
+/**
+ Creates a new weak proxy for target.
+ 
+ @param target Target object.
+ 
+ @return A new proxy object.
+ */
+- (instancetype _Nullable )initWithTarget:(id _Nullable )target;
+
+/**
+ Creates a new weak proxy for target.
+ 
+ @param target Target object.
+ 
+ @return A new proxy object.
+ */
++ (instancetype _Nullable )proxyWithTarget:(id _Nullable )target;
+
+@end
+
+
+// NSTimer
+@interface NSTimer (CrashProtector)
 
 @end

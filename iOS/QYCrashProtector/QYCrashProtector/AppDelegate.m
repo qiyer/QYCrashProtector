@@ -27,16 +27,6 @@
     Test * test = [[Test alloc] init];
     [test performSelector:@selector(haha) withObject:nil];
     
-    NSLog(@"=============================================");
-    SwizzlingTest * stest = [SwizzlingTest new];
-    
-    [stest doFuncA];
-    [stest doFuncB];
-    NSLog(@"=============================================");
-    [stest swizzling];
-    
-    [stest doFuncA];
-    [stest doFuncB];
     
     NSString * tt  = nil;
     NSDictionary * dic = @{@"sss":@"cccc",@"name":tt};
@@ -63,6 +53,10 @@
     [@"dddd" hasSuffix:nil];
     
     NSString * str2 = [NSMutableString stringWithString:nil];
+    
+    [test doTimerTest];
+    
+    [test doNotificationTest];
     NSLog(@"xxxxxx");
     return YES;
 }
