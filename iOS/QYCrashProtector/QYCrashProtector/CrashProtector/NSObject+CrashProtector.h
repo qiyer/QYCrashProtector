@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define CP_OPEN  YES
+
 @interface CrashProxy : NSObject
 
 @property (nonatomic,copy) NSString * _Nullable crashMsg;
@@ -16,6 +18,7 @@
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 // NSObject
 @interface NSObject (CrashProtector)
 
@@ -23,36 +26,43 @@
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 // NSDictionary
 @interface NSDictionary (CrashProtector)
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 // NSMutableDictionary
 @interface NSMutableDictionary (CrashProtector)
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 // NSArray
 @interface NSArray (CrashProtector)
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 // NSMutableArray
 @interface NSMutableArray (CrashProtector)
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 // NSString
 @interface NSString (CrashProtector)
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 // NSMutableString
 @interface NSMutableString (CrashProtector)
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 //CPWeakProxy
 //拿了YY大神的YYWeakProxy，感谢YY大神   链接 :https://github.com/ibireme/YYKit/blob/master/YYKit/Utility/YYWeakProxy.h
 @interface CPWeakProxy : NSProxy
@@ -82,8 +92,28 @@
 
 @end
 
-
+//-----------------------------------------------------------------------------------------------------------------------------
 // NSTimer
 @interface NSTimer (CrashProtector)
+
+@end
+
+//-----------------------------------------------------------------------------------------------------------------------------
+//KVOProxy
+@class CPKVOInfo;
+@interface KVOProxy : NSObject
+
+-(BOOL)addKVOinfo:(id _Nullable )object info:(CPKVOInfo *_Nullable)info;
+-(void)removeKVOinfo:(id _Nullable )object keyPath:(NSString *_Nullable)keyPath block:(void(^_Nullable)()) block;
+-(void)removeAllObserve;
+@end
+
+typedef void (^CPKVONotificationBlock)(id _Nullable observer, id _Nullable object, NSDictionary<NSKeyValueChangeKey, id> * _Nullable change);
+
+//-----------------------------------------------------------------------------------------------------------------------------
+//CPKVOInfo
+@interface CPKVOInfo : NSObject
+
+- (instancetype _Nullable )initWithKeyPath:(NSString *_Nullable)keyPath options:(NSKeyValueObservingOptions)options context:(void *_Nullable)context;
 
 @end

@@ -10,6 +10,11 @@
 
 @interface Test : NSObject
 
+@property(nonatomic,copy) NSString*  kvo_name;
+
+
 -(void)doTimerTest;
 -(void)doNotificationTest;
+
+-(void)testKVO;
 @end

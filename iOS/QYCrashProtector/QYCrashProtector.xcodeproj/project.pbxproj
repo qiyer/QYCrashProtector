@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		01188AD01F68DC5200FC101E /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 01188ACF1F68DC5200FC101E /* Test.m */; };
 		01188AD31F6920C900FC101E /* SwizzlingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 01188AD21F6920C900FC101E /* SwizzlingTest.m */; };
+		0157BEF31F972C740056FB64 /* AClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 0157BEF21F972C740056FB64 /* AClass.m */; };
+		0157BEF61F99DC8C0056FB64 /* KVOTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0157BEF51F99DC8C0056FB64 /* KVOTest.m */; };
+		0157BEF91F9ED7970056FB64 /* BClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 0157BEF81F9ED7970056FB64 /* BClass.m */; };
 		01F021ED1F5D4B0300BDB21E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F021EC1F5D4B0300BDB21E /* main.m */; };
 		01F021F01F5D4B0300BDB21E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F021EF1F5D4B0300BDB21E /* AppDelegate.m */; };
 		01F021F81F5D4B0300BDB21E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01F021F71F5D4B0300BDB21E /* Assets.xcassets */; };
@@ -17,11 +20,31 @@
 		01F022081F5D506500BDB21E /* CPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F022071F5D506500BDB21E /* CPManager.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0157BF2C1F9F275D0056FB64 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		01188ACE1F68DC5200FC101E /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
 		01188ACF1F68DC5200FC101E /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		01188AD11F6920C900FC101E /* SwizzlingTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwizzlingTest.h; sourceTree = "<group>"; };
 		01188AD21F6920C900FC101E /* SwizzlingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwizzlingTest.m; sourceTree = "<group>"; };
+		0157BEF11F972C740056FB64 /* AClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AClass.h; sourceTree = "<group>"; };
+		0157BEF21F972C740056FB64 /* AClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AClass.m; sourceTree = "<group>"; };
+		0157BEF41F99DC8C0056FB64 /* KVOTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVOTest.h; sourceTree = "<group>"; };
+		0157BEF51F99DC8C0056FB64 /* KVOTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVOTest.m; sourceTree = "<group>"; };
+		0157BEF71F9ED7970056FB64 /* BClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BClass.h; sourceTree = "<group>"; };
+		0157BEF81F9ED7970056FB64 /* BClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BClass.m; sourceTree = "<group>"; };
+		0157BF1A1F9F275C0056FB64 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
 		01F021E81F5D4B0300BDB21E /* QYCrashProtector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QYCrashProtector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01F021EC1F5D4B0300BDB21E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01F021EE1F5D4B0300BDB21E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -46,10 +69,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0157BF191F9F275C0056FB64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0157BF1A1F9F275C0056FB64 /* Messages.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		01F021DF1F5D4B0200BDB21E = {
 			isa = PBXGroup;
 			children = (
 				01F021EA1F5D4B0300BDB21E /* QYCrashProtector */,
+				0157BF191F9F275C0056FB64 /* Frameworks */,
 				01F021E91F5D4B0300BDB21E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -76,6 +108,12 @@
 				01188ACF1F68DC5200FC101E /* Test.m */,
 				01188AD11F6920C900FC101E /* SwizzlingTest.h */,
 				01188AD21F6920C900FC101E /* SwizzlingTest.m */,
+				0157BEF11F972C740056FB64 /* AClass.h */,
+				0157BEF21F972C740056FB64 /* AClass.m */,
+				0157BEF41F99DC8C0056FB64 /* KVOTest.h */,
+				0157BEF51F99DC8C0056FB64 /* KVOTest.m */,
+				0157BEF71F9ED7970056FB64 /* BClass.h */,
+				0157BEF81F9ED7970056FB64 /* BClass.m */,
 			);
 			path = QYCrashProtector;
 			sourceTree = "<group>";
@@ -109,6 +147,7 @@
 				01F021E41F5D4B0200BDB21E /* Sources */,
 				01F021E51F5D4B0200BDB21E /* Frameworks */,
 				01F021E61F5D4B0200BDB21E /* Resources */,
+				0157BF2C1F9F275D0056FB64 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -130,6 +169,7 @@
 				TargetAttributes = {
 					01F021E71F5D4B0200BDB21E = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 2KN5MZ4WW5;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -170,11 +210,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				01F021F01F5D4B0300BDB21E /* AppDelegate.m in Sources */,
+				0157BEF31F972C740056FB64 /* AClass.m in Sources */,
 				01F022081F5D506500BDB21E /* CPManager.m in Sources */,
 				01188AD01F68DC5200FC101E /* Test.m in Sources */,
+				0157BEF61F99DC8C0056FB64 /* KVOTest.m in Sources */,
 				01F022051F5D4F3B00BDB21E /* NSObject+CrashProtector.m in Sources */,
 				01F021ED1F5D4B0300BDB21E /* main.m in Sources */,
 				01188AD31F6920C900FC101E /* SwizzlingTest.m in Sources */,
+				0157BEF91F9ED7970056FB64 /* BClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +329,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2KN5MZ4WW5;
 				INFOPLIST_FILE = QYCrashProtector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiye.QYCrashProtector;
@@ -297,6 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2KN5MZ4WW5;
 				INFOPLIST_FILE = QYCrashProtector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiye.QYCrashProtector;

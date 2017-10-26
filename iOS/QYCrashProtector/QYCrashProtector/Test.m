@@ -22,6 +22,8 @@
 -(void)doNotificationTest
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCallback) name:@"notificationCallback_test" object:nil];
+    
+    self.kvo_name = @"ccccccc";
 }
 
 -(void)notificationCallback
@@ -37,5 +39,18 @@
 -(void)dealloc
 {
     NSLog(@"Test class is dealloc!");
+    [self removeObserver:self forKeyPath:@"kvo_name"];
 }
+
+
+-(void)testKVO
+{
+    [self addObserver:self forKeyPath:@"kvo_name" options:NSKeyValueObservingOptionNew context:nil];
+    self.kvo_name = @"66666";
+}
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context{
+    NSLog(@"observeValueForKeyPath:%@",keyPath);
+}
+
 @end

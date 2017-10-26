@@ -13,6 +13,10 @@
 
 #import "NSObject+CrashProtector.h"
 
+#import "AClass.h"
+#import "KVOTest.h"
+#import "BClass.h"
+
 @interface AppDelegate ()
 
 @end
@@ -21,6 +25,17 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
+//    BClass * bclass = [BClass new];
+//    [bclass doAddObserver];
+//    return YES;
+    
+//    KVOTest * kvo = [KVOTest new];
+//    [kvo doSwizzling];
+//    [kvo doAddObserver];
+//    
+//    return YES;
     
     int a[10];
     
@@ -57,7 +72,10 @@
     [test doTimerTest];
     
     [test doNotificationTest];
+    
+    [test testKVO];
     NSLog(@"xxxxxx");
+    
     return YES;
 }
 

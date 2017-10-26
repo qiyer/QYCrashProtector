@@ -8,6 +8,7 @@
 
 #import "NSObject+CrashProtector.h"
 #import <objc/runtime.h>
+#import <pthread.h>
 
 // CrashProxy
 // get crash message
@@ -19,13 +20,22 @@
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 // NSObject (CrashProtector)
 // fix "unrecognized selector" ,"KVC"
+static void *NSObjectKVOProxyKey = &NSObjectKVOProxyKey;
 @implementation NSObject (CrashProtector)
 
 #pragma load
 +(void)load
 {
+    if (!CP_OPEN) {
+        NSLog(@"CrashProtector  close !");
+        return;
+    }
+    
+    NSLog(@"CrashProtector  open !");
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self swizzlingInstance:objc_getClass("__NSPlaceholderDictionary") orginalMethod:@selector(initWithObjects:forKeys:count:) replaceMethod:NSSelectorFromString(@"qiye_initWithObjects:forKeys:count:")];
@@ -59,6 +69,11 @@
         [self swizzlingInstance:objc_getClass("NSNotificationCenter") orginalMethod:NSSelectorFromString(@"addObserver:selector:name:object:") replaceMethod:NSSelectorFromString(@"qiye_addObserver:selector:name:object:")];
         
         [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"dealloc") replaceMethod:NSSelectorFromString(@"qiye_dealloc")];
+        
+        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"addObserver:forKeyPath:options:context:") replaceMethod:NSSelectorFromString(@"qiye_addObserver:forKeyPath:options:context:")];
+        
+        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"removeObserver:forKeyPath:") replaceMethod:NSSelectorFromString(@"qiye_removeObserver:forKeyPath:")];
+
         
     });
 }
@@ -165,6 +180,7 @@
         NSLog(@"[Notification] need log msg");
         [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
+    
     [self qiye_dealloc];
 }
 
@@ -181,9 +197,46 @@ static const char *isNSNotification = "isNSNotification";
     return  [number boolValue];
 }
 
+#pragma KVO
+- (void)qiye_addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(nullable void *)context
+{
+    CPKVOInfo * kvoInfo = [[CPKVOInfo alloc] initWithKeyPath:keyPath options:options context:context];
+    __weak typeof(self) wkself = self;
+    if([self.KVOProxy addKVOinfo:wkself info:kvoInfo]){
+        [self qiye_addObserver:self.KVOProxy forKeyPath:keyPath options:options context:context];
+    }else{
+        NSLog(@"KVO is more");
+    }
+}
+
+- (void)qiye_removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath
+{
+    NSLog(@"qiye_removeObserver");
+    [self.KVOProxy removeKVOinfo:self keyPath:keyPath block:^{
+        [self qiye_removeObserver:observer forKeyPath:keyPath];
+    }];
+}
+
+- (KVOProxy *)KVOProxy
+{
+    id proxy = objc_getAssociatedObject(self, NSObjectKVOProxyKey);
+    
+    if (nil == proxy) {
+        proxy = [[KVOProxy alloc] init];
+        self.KVOProxy = proxy;
+    }
+    
+    return proxy;
+}
+
+- (void)setKVOProxy:(KVOProxy *)proxy
+{
+    objc_setAssociatedObject(self, NSObjectKVOProxyKey, proxy, OBJC_ASSOCIATION_ASSIGN);
+}
+
 @end
 
-
+//-----------------------------------------------------------------------------------------------------------------------------
 //  NSDictionary (CrashProtector)
 //  fix
 @implementation NSDictionary (CrashProtector)
@@ -231,7 +284,7 @@ static const char *isNSNotification = "isNSNotification";
 
 @end
 
-
+//-----------------------------------------------------------------------------------------------------------------------------
 //  NSMutableDictionary (CrashProtector)
 //  fix
 @implementation NSMutableDictionary (CrashProtector)
@@ -246,6 +299,7 @@ static const char *isNSNotification = "isNSNotification";
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 //  NSArray (CrashProtector)
 //  fix
 @implementation NSArray (CrashProtector)
@@ -277,6 +331,7 @@ static const char *isNSNotification = "isNSNotification";
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 //  NSMutableArray (CrashProtector)
 //  fix
 @implementation NSMutableArray (CrashProtector)
@@ -310,6 +365,7 @@ static const char *isNSNotification = "isNSNotification";
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 //  NSString (CrashProtector)
 //  fix
 @implementation NSString (CrashProtector)
@@ -343,6 +399,7 @@ static const char *isNSNotification = "isNSNotification";
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 //  NSMutableString (CrashProtector)
 //  fix
 @implementation NSMutableString (CrashProtector)
@@ -358,6 +415,7 @@ static const char *isNSNotification = "isNSNotification";
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 //  CPWeakProxy
 @implementation CPWeakProxy
 
@@ -429,6 +487,7 @@ static const char *isNSNotification = "isNSNotification";
 
 @end
 
+//-----------------------------------------------------------------------------------------------------------------------------
 //  NSTimer (CrashProtector)
 //  fix
 @implementation NSTimer (CrashProtector)
@@ -444,4 +503,164 @@ static const char *isNSNotification = "isNSNotification";
     NSLog(@"qiye_timerWithTimeInterval");
     return [self qiye_timerWithTimeInterval:ti target:aTarget selector:aSelector userInfo:userInfo repeats:yesOrNo];
 }
+@end
+
+//-----------------------------------------------------------------------------------------------------------------------------
+//  KVOProxy
+//  fix
+@implementation KVOProxy{
+    pthread_mutex_t _mutex;
+    NSMapTable<id, NSMutableSet<CPKVOInfo *> *> *_objectInfosMap;
+}
+
+
+- (instancetype)init
+{
+    self = [super init];
+    if (nil != self) {
+
+        _objectInfosMap = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPointerPersonality valueOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality capacity:0];
+
+        pthread_mutex_init(&_mutex, NULL);
+    }
+    return self;
+}
+
+-(BOOL)addKVOinfo:(id)object info:(CPKVOInfo *)info
+{
+    [self lock];
+    
+    NSMutableSet *infos = [_objectInfosMap objectForKey:object];
+    __block BOOL isHas = NO;
+    [infos enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if([[info valueForKey:@"_keyPath"] isEqualToString:[obj valueForKey:@"_keyPath"]]){
+            *stop = YES;
+            isHas = YES;
+        }
+    }];
+    if(isHas) {
+        [self unlock];
+        return NO ;
+    }
+    if(nil == infos){
+        infos = [NSMutableSet set];
+        [_objectInfosMap setObject:infos forKey:object];
+    }
+    [infos addObject:info];
+    [self unlock];
+    
+    return YES;
+}
+
+-(void)removeKVOinfo:(id)object keyPath:(NSString *)keyPath block:(void(^)()) block
+{
+    [self lock];
+    NSMutableSet *infos = [_objectInfosMap objectForKey:object];
+    __block CPKVOInfo *info;
+    [infos enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if([keyPath isEqualToString:[obj valueForKey:@"_keyPath"]]){
+            info = (CPKVOInfo *)obj;
+            *stop = YES;
+        }
+    }];
+    
+    if (nil != info) {
+        [infos removeObject:info];
+        block();
+        if (0 == infos.count) {
+            [_objectInfosMap removeObjectForKey:object];
+        }
+    }
+    [self unlock];
+}
+
+-(void)removeAllObserve
+{
+    if (_objectInfosMap) {
+        NSMapTable *objectInfoMaps = [_objectInfosMap copy];
+        for (id object in objectInfoMaps) {
+
+            NSSet *infos = [objectInfoMaps objectForKey:object];
+            if(nil==infos || infos.count==0) continue;
+            [infos enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
+                CPKVOInfo *info = (CPKVOInfo *)obj;
+                [object removeObserver:self forKeyPath:[info valueForKey:@"_keyPath"]];
+            }];
+        }
+        [_objectInfosMap removeAllObjects];
+    }
+}
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context{
+    NSLog(@"KVOProxy - observeValueForKeyPath :%@",change);
+    __block CPKVOInfo *info ;
+    {
+        [self lock];
+        NSSet *infos = [_objectInfosMap objectForKey:object];
+        [infos enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
+            if([keyPath isEqualToString:[obj valueForKey:@"_keyPath"]]){
+                info = (CPKVOInfo *)obj;
+                *stop = YES;
+            }
+        }];
+        [self unlock];
+    }
+    
+    if (nil != info) {
+        [object observeValueForKeyPath:keyPath ofObject:object change:change context:(__bridge void * _Nullable)([info valueForKey:@"_context"])];
+    }
+}
+
+-(void)lock
+{
+    pthread_mutex_lock(&_mutex);
+}
+
+-(void)unlock
+{
+    pthread_mutex_unlock(&_mutex);
+}
+
+- (void)dealloc
+{
+    [self removeAllObserve];
+    pthread_mutex_destroy(&_mutex);
+     NSLog(@"KVOProxy dealloc");
+}
+
+@end
+
+//-----------------------------------------------------------------------------------------------------------------------------
+//  CPKVOInfo
+@implementation CPKVOInfo{
+@public
+    NSString *_keyPath;
+    NSKeyValueObservingOptions _options;
+    SEL _action;
+    void *_context;
+    CPKVONotificationBlock _block;
+}
+
+- (instancetype)initWithKeyPath:(NSString *)keyPath
+                        options:(NSKeyValueObservingOptions)options
+                          block:(nullable CPKVONotificationBlock)block
+                         action:(nullable SEL)action
+                        context:(nullable void *)context
+{
+    self = [super init];
+    if (nil != self) {
+        _block = [block copy];
+        _keyPath = [keyPath copy];
+        _options = options;
+        _action = action;
+        _context = context;
+    }
+    return self;
+}
+
+- (instancetype)initWithKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context
+{
+    return [self initWithKeyPath:keyPath options:options block:NULL action:NULL context:context];
+}
+
 @end
