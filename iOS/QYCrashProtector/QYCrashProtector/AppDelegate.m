@@ -36,6 +36,7 @@
 //    [kvo doAddObserver];
 //    
 //    return YES;
+    [NSObject openCP];
     
     int a[10];
     
@@ -45,6 +46,10 @@
     
     NSString * tt  = nil;
     NSDictionary * dic = @{@"sss":@"cccc",@"name":tt};
+    
+    for (id obj in dic) {
+        NSLog(@"dic:%@",obj);
+    }
     NSMutableDictionary * dic2 = [[NSMutableDictionary alloc] init];
     [dic2 setObject:tt forKey:@"cccc"];
     [dic2 setObject:@"xxxx" forKey:@"key1"];

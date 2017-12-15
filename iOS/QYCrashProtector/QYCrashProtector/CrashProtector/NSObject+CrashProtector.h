@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define CP_OPEN  YES
+#define CP_OPEN  NO
 
 @interface CrashProxy : NSObject
 
@@ -22,6 +22,7 @@
 // NSObject
 @interface NSObject (CrashProtector)
 
++ (void)openCP;
 + (BOOL)swizzlingInstanceMethod:(SEL _Nullable )originalSelector  replaceMethod:(SEL _Nullable )replaceSelector;
 
 @end

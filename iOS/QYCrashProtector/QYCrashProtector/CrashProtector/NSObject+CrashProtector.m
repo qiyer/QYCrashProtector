@@ -26,16 +26,8 @@
 static void *NSObjectKVOProxyKey = &NSObjectKVOProxyKey;
 @implementation NSObject (CrashProtector)
 
-#pragma load
-+(void)load
++ (void)openCP
 {
-    if (!CP_OPEN) {
-        NSLog(@"CrashProtector  close !");
-        return;
-    }
-    
-    NSLog(@"CrashProtector  open !");
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self swizzlingInstance:objc_getClass("__NSPlaceholderDictionary") orginalMethod:@selector(initWithObjects:forKeys:count:) replaceMethod:NSSelectorFromString(@"qiye_initWithObjects:forKeys:count:")];
@@ -73,9 +65,19 @@ static void *NSObjectKVOProxyKey = &NSObjectKVOProxyKey;
         [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"addObserver:forKeyPath:options:context:") replaceMethod:NSSelectorFromString(@"qiye_addObserver:forKeyPath:options:context:")];
         
         [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"removeObserver:forKeyPath:") replaceMethod:NSSelectorFromString(@"qiye_removeObserver:forKeyPath:")];
-
         
     });
+}
+
+#pragma load
++(void)load
+{
+    if (!CP_OPEN) {
+        NSLog(@"CrashProtector  close !");
+        return;
+    }
+    NSLog(@"CrashProtector  open !");
+    [self openCP];
 }
 
 //在进行方法swizzing时候，一定要注意类簇 ，比如 NSArray NSDictionary 等。
