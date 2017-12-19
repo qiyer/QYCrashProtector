@@ -7,9 +7,11 @@ iOS crash protect
 
 2.NSObject+CrashProtector.h 文件里面 #define CP_OPEN  YES 为开启保护， NO为关闭保护 ；
 
-3.建议测试期间 CP_OPEN 设为NO，这样能暴露问题 解决问题，待上线时候设为YES，减少APP的崩溃率 ；
+3.建议测试期间 CP_OPEN 设为NO，这样能暴露问题 解决问题，待上线时候设为YES，减少APP的崩溃率 ；或者CP_OPEN 设为NO 调用[NSObject openCP];在需要的时候动态开启；
 
 4.log部分楼主还在抽时间完善，公司大大小小会议有点多，写代码时间很少，抱歉。
+
+5.有同学 说xcode9.2 运行 函数越界的 会不起作用；我在xcode 8.3 、xcode 9.0 测试没有问题，xcode 9.2 还没有试过；
 
 ## 作用？
 
