@@ -1,5 +1,8 @@
 # QYCrashProtector
 iOS crash protect
+关于为什么实现都在NSObject+CrashProtector.m，而不是搞些分类实现？
+
+个人认为，功能类 目的是封装好给别人用的，而不是让大家都可以去看其实现、学习。放在一个类里实现，好处就是精简；坏处就是出问题查起来麻烦，看实现也不是很清晰。
 
 ## 如何使用？
 
