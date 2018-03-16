@@ -16,6 +16,8 @@ iOS crash protect
 
 5.有同学 说xcode9.2 运行 函数越界的 会不起作用；我在xcode 8.3 、xcode 9.0 测试没有问题，xcode 9.2 还没有试过；
 
+注意：最好通过[NSObject openCP] 在app启动后调用，如果通过CP_OPEN 宏控制，在+load 时候开始保护，有可能会干扰系统底层自身的一些调用。
+
 ## 作用？
 
 1. unrecognized selector crash
