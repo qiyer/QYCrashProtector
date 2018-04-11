@@ -61,7 +61,7 @@
     NSArray * arr = @[@"111",@"222",tt,@"ddd"];
     NSArray * arr2 = @[@[@"aa",@"bb"],@[@"dd",tt]];
     NSArray *arr3 = [NSArray arrayWithObjects:@"dsd",tt,@"sdsd", nil];
-    arr[3];
+//    arr[3];
     
     NSMutableArray * arr4 = [NSMutableArray array];
     [arr4 addObject:tt];

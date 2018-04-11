@@ -62,9 +62,11 @@ static void *NSObjectKVOProxyKey = &NSObjectKVOProxyKey;
         
         [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"dealloc") replaceMethod:NSSelectorFromString(@"qiye_dealloc")];
         
-        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"addObserver:forKeyPath:options:context:") replaceMethod:NSSelectorFromString(@"qiye_addObserver:forKeyPath:options:context:")];
+        //暂时注释kvo预防，该逻辑在 xcode9.2 真机测试会 crash
         
-        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"removeObserver:forKeyPath:") replaceMethod:NSSelectorFromString(@"qiye_removeObserver:forKeyPath:")];
+//        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"addObserver:forKeyPath:options:context:") replaceMethod:NSSelectorFromString(@"qiye_addObserver:forKeyPath:options:context:")];
+//
+//        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"removeObserver:forKeyPath:") replaceMethod:NSSelectorFromString(@"qiye_removeObserver:forKeyPath:")];
         
     });
 }
