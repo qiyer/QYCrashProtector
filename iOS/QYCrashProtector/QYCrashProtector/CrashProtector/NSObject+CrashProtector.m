@@ -14,8 +14,9 @@
 // get crash message
 @implementation CrashProxy
 
-- (void)getCrashMsg{
+- (id)getCrashMsg{
     NSLog(@"%@",_crashMsg);
+    return nil;
 }
 
 @end
