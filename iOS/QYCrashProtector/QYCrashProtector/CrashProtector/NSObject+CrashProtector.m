@@ -41,11 +41,15 @@ static void *NSObjectKVOProxyKey = &NSObjectKVOProxyKey;
         
         [self swizzlingInstance:objc_getClass("__NSArrayI") orginalMethod:@selector(objectAtIndex:) replaceMethod:NSSelectorFromString(@"qiye_objectAtIndex:")];
         
+        [self swizzlingInstance:objc_getClass("__NSArrayI") orginalMethod:@selector(objectAtIndexedSubscript:) replaceMethod:@selector(qiye_objectAtIndexedSubscript:)];
+        
         [self swizzlingInstance:objc_getClass("__NSArrayM") orginalMethod:@selector(addObject:) replaceMethod:NSSelectorFromString(@"qiye_addObject:")];
         
         [self swizzlingInstance:objc_getClass("__NSArrayM") orginalMethod:@selector(insertObject:atIndex:) replaceMethod:NSSelectorFromString(@"qiye_insertObject:atIndex:")];
         
         [self swizzlingInstance:objc_getClass("__NSArrayM") orginalMethod:@selector(objectAtIndex:) replaceMethod:NSSelectorFromString(@"qiye_objectAtIndex:")];
+        
+        [self swizzlingInstance:objc_getClass("__NSArrayM") orginalMethod:@selector(objectAtIndexedSubscript:) replaceMethod:NSSelectorFromString(@"qiye_objectAtIndexedSubscript:")];
         
         [self swizzlingInstance:objc_getClass("NSPlaceholderString") orginalMethod:@selector(initWithString:) replaceMethod:NSSelectorFromString(@"qiye_initWithString:")];
         
@@ -334,6 +338,14 @@ static const char *isNSNotification = "isNSNotification";
     return [self qiye_objectAtIndex:index];
 }
 
+- (id)qiye_objectAtIndexedSubscript:(NSUInteger)index {
+    if (index >= self.count ) {
+        NSLog(@"need log msg");
+        return nil;
+    }
+    return [self qiye_objectAtIndexedSubscript:index];
+}
+
 @end
 
 //-----------------------------------------------------------------------------------------------------------------------------
@@ -366,6 +378,14 @@ static const char *isNSNotification = "isNSNotification";
         return nil;
     }
     return [self qiye_objectAtIndex:index];
+}
+
+- (id)qiye_objectAtIndexedSubscript:(NSUInteger)index {
+    if (index >= self.count ) {
+        NSLog(@"need log msg");
+        return nil;
+    }
+    return [self qiye_objectAtIndexedSubscript:index];
 }
 
 @end
