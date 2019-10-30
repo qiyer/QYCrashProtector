@@ -14,7 +14,7 @@
 
 @property (nonatomic,copy) NSString * _Nullable crashMsg;
 
-- (void)getCrashMsg;
+- (id _Nullable)getCrashMsg;
 
 @end
 
