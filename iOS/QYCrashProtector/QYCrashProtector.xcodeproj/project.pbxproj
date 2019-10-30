@@ -179,6 +179,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -329,7 +330,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: zeliang wu (E3938A2W6N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 52L8S4EZRD;
 				INFOPLIST_FILE = QYCrashProtector/Info.plist;
@@ -338,7 +339,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.denachina.pickle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5b05b63d-6867-490d-a9d9-0c299d96d9ea";
-				PROVISIONING_PROFILE_SPECIFIER = zeliangwuLCMPickle;
+				PROVISIONING_PROFILE_SPECIFIER = wildcard_zy_dev;
 			};
 			name = Debug;
 		};
@@ -346,7 +347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: zeliang wu (E3938A2W6N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 52L8S4EZRD;
 				INFOPLIST_FILE = QYCrashProtector/Info.plist;
@@ -355,7 +356,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.denachina.pickle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5b05b63d-6867-490d-a9d9-0c299d96d9ea";
-				PROVISIONING_PROFILE_SPECIFIER = zeliangwuLCMPickle;
+				PROVISIONING_PROFILE_SPECIFIER = wildcard_zy_dev;
 			};
 			name = Release;
 		};

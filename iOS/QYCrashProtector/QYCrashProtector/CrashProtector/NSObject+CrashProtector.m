@@ -41,7 +41,7 @@ static void *NSObjectKVOProxyKey = &NSObjectKVOProxyKey;
         
         [self swizzlingInstance:objc_getClass("__NSArrayI") orginalMethod:@selector(objectAtIndex:) replaceMethod:NSSelectorFromString(@"qiye_objectAtIndex:")];
         
-        [self swizzlingInstance:objc_getClass("__NSArrayI") orginalMethod:@selector(objectAtIndexedSubscript:) replaceMethod:@selector(qiye_objectAtIndexedSubscript:)];
+        [self swizzlingInstance:objc_getClass("__NSArrayI") orginalMethod:@selector(objectAtIndexedSubscript:) replaceMethod:NSSelectorFromString(@"qiye_objectAtIndexedSubscript:")];
         
         [self swizzlingInstance:objc_getClass("__NSArrayM") orginalMethod:@selector(addObject:) replaceMethod:NSSelectorFromString(@"qiye_addObject:")];
         
@@ -69,9 +69,9 @@ static void *NSObjectKVOProxyKey = &NSObjectKVOProxyKey;
         
         //暂时注释kvo预防，该逻辑在 xcode9.2 真机测试会 crash
         
-//        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"addObserver:forKeyPath:options:context:") replaceMethod:NSSelectorFromString(@"qiye_addObserver:forKeyPath:options:context:")];
-//
-//        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"removeObserver:forKeyPath:") replaceMethod:NSSelectorFromString(@"qiye_removeObserver:forKeyPath:")];
+        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"addObserver:forKeyPath:options:context:") replaceMethod:NSSelectorFromString(@"qiye_addObserver:forKeyPath:options:context:")];
+
+        [self swizzlingInstance:self orginalMethod:NSSelectorFromString(@"removeObserver:forKeyPath:") replaceMethod:NSSelectorFromString(@"qiye_removeObserver:forKeyPath:")];
         
     });
 }
@@ -114,30 +114,31 @@ static void *NSObjectKVOProxyKey = &NSObjectKVOProxyKey;
     return YES;
 }
 
-+ (BOOL)swizzlingClass:(Class)klass replaceClassMethod:(SEL)methodSelector1 withMethod:(SEL)methodSelector2
++ (BOOL)swizzlingClass:(Class)klass replaceClassMethod:(SEL)originalSelector withMethod:(SEL)replaceSelector
 {
-    if (!klass || !methodSelector1 || !methodSelector2) {
+    if (!klass || !originalSelector || !replaceSelector) {
         NSLog(@"Nil Parameter(s) found when swizzling.");
         return NO;
     }
     
-    Method method1 = class_getClassMethod(klass, methodSelector1);
-    Method method2 = class_getClassMethod(klass, methodSelector2);
-    if (method1 && method2) {
-        IMP imp1 = method_getImplementation(method1);
-        IMP imp2 = method_getImplementation(method2);
+    Method swizzledMethod = class_getClassMethod(self, replaceSelector);
+    
+    if ([klass respondsToSelector:originalSelector]) {
+        Class metaClass = objc_getMetaClass(class_getName(klass));
+        BOOL didAdd = class_addMethod(metaClass,
+                                      replaceSelector,
+                                      method_getImplementation(swizzledMethod),
+                                      method_getTypeEncoding(swizzledMethod));
         
-        Class classMeta = object_getClass(klass);
-        if (class_addMethod(classMeta, methodSelector1, imp2, method_getTypeEncoding(method2))) {
-            class_replaceMethod(classMeta, methodSelector2, imp1, method_getTypeEncoding(method1));
-        } else {
-            method_exchangeImplementations(method1, method2);
+        if (didAdd) {
+            method_exchangeImplementations(class_getInstanceMethod(metaClass, originalSelector),
+                                           class_getInstanceMethod(metaClass, replaceSelector));
         }
-        return YES;
-    } else {
+    }else{
         NSLog(@"Swizzling Method(s) not found while swizzling class %@.", NSStringFromClass(klass));
         return NO;
     }
+    return YES;
 }
 
 
